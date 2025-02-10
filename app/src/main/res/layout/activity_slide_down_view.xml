@@ -17,15 +17,15 @@
         android:background="@color/dimBg" />
 
     <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.example.slideup.SlideUpViewActivity">
+        tools:context="com.example.slideup.SlideDownViewActivity">
 
             <android.support.design.widget.AppBarLayout
                 android:background="@android:color/transparent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:elevation="0dp"
                 app:elevation="0dp"
                 android:theme="@style/AppTheme.AppBarOverlay">
 
@@ -38,8 +38,7 @@
 
             </android.support.design.widget.AppBarLayout>
 
-            <include layout="@layout/content_slide_up_view"
-              tools:visibility = "gone"/>
+            <include layout="@layout/content_slide_down_view" />
 
             <android.support.design.widget.FloatingActionButton
                 android:id="@+id/fab"

@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.mancj.slideup.SlideUp;
 import com.mancj.slideup.SlideUpBuilder;
 
-public class SlideUpViewActivity extends AppCompatActivity {
+public class SlideDownViewActivity extends AppCompatActivity {
     private SlideUp slideUp;
     private View dim;
     private View sliderView;
@@ -24,7 +24,7 @@ public class SlideUpViewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_slide_up_view);
+        setContentView(R.layout.activity_slide_down_view);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -35,7 +35,7 @@ public class SlideUpViewActivity extends AppCompatActivity {
                 if (toast != null){
                     toast.cancel();
                 }
-                toast = Toast.makeText(SlideUpViewActivity.this, "click", Toast.LENGTH_SHORT);
+                toast = Toast.makeText(SlideDownViewActivity.this, "click", Toast.LENGTH_SHORT);
                 toast.show();
             }
         });
@@ -47,11 +47,8 @@ public class SlideUpViewActivity extends AppCompatActivity {
                     @Override
                     public void onSlide(float percent) {
                         dim.setAlpha(1 - (percent / 100));
-                        if (fab.isShown() && percent < 100) {
-                            fab.hide();
-                        }
                     }
-
+    
                     @Override
                     public void onVisibilityChanged(int visibility) {
                         if (visibility == View.GONE){
@@ -59,17 +56,16 @@ public class SlideUpViewActivity extends AppCompatActivity {
                         }
                     }
                 })
-                .withStartGravity(Gravity.BOTTOM)
+                .withStartGravity(Gravity.TOP)
                 .withLoggingEnabled(true)
-                .withGesturesEnabled(true)
                 .withStartState(SlideUp.State.HIDDEN)
-                .withSlideFromOtherView(findViewById(R.id.rootView))
                 .build();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 slideUp.show();
+                fab.hide();
             }
         });
 
@@ -77,22 +73,21 @@ public class SlideUpViewActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_slide_up_view, menu);
+        getMenuInflater().inflate(R.menu.menu_slide_down_view, menu);
         return true;
     }
-    
     
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.action_slide_up:
+                startActivity(new Intent(this, SlideUpViewActivity.class));
+                break;
             case R.id.action_slide_start:
                 startActivity(new Intent(this, SlideStartViewActivity.class));
                 break;
             case R.id.action_slide_end:
                 startActivity(new Intent(this, SlideEndViewActivity.class));
-                break;
-            case R.id.action_slide_down:
-                startActivity(new Intent(this, SlideDownViewActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
